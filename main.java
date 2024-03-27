@@ -1,30 +1,28 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public class TwoSum {
-    public int[] twoSum(int[] numbers, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
+    public int[] findTwoSum(int[] numbers, int target) {
+        int left = 0;
+        int right = numbers.length - 1;
         
-        for (int i = 0; i < numbers.length; i++) {
-            int complement = target - numbers[i];
-            
-            if (map.containsKey(complement)) {
-                return new int[] {map.get(complement) + 1, i + 1}; // Indices are 1-indexed
-            }
-            
-            map.put(numbers[i], i);
+        while (left < right) {
+            int sum = numbers[left] + numbers[right];
+        
+        if (sum == target) {
+            return new int[] {left + 1, right + 1};
+        } else if (sum < target) {
+            left++; 
+        } else {
+            right--; 
         }
-        
-        throw new IllegalArgumentException("No two sum solution");
+        }       
+        return new int[] {-1, -1};
     }
     
     public static void main(String[] args) {
+        TwoSum twoSum = new TwoSum();
         int[] numbers = {2, 7, 11, 15};
         int target = 9;
         
-        TwoSum solution = new TwoSum();
-        int[] result = solution.twoSum(numbers, target);
-        
-        System.out.println("Output: [" + result[0] + ", " + result[1] + "]");
+        int[] indices = twoSum.findTwoSum(numbers, target);
+        System.out.println("Index1: " + indices[0] + ", Index2: " + indices[1]);
     }
 }
